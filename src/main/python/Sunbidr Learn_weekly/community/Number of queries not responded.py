@@ -4,7 +4,7 @@ import datetime
 import configparser
 
 config = configparser.ConfigParser(interpolation=None)
-config.read("/home/rashmi/PycharmProjects/Sunbird-lern overall/Community_disscusion/Discussions/config.ini")
+config.read("Please provide your token")
 
 name_of_community = config.get("COMMUNITY_NAME", "name")
 
