@@ -5,7 +5,7 @@ from datetime import datetime
 import configparser
 
 config = configparser.ConfigParser(interpolation=None)
-config.read("config.ini")
+config.read("Please provide your token")
 
 name_of_community = config.get("COMMUNITY_NAME", "name")
 
@@ -84,77 +84,3 @@ print(f"Total discussion count from {start_date_str} to {end_date_str}: {total_c
 print("Discussion counts by category:")
 for category_slug, count in category_counts.items():
     print(f"{category_slug}: {count}")
-
-
-
-
-
-
-
-# import json
-# import requests
-# from datetime import datetime, timedelta
-#
-# query = """
-# query($cursor: String) {
-#   repository(owner: "sunbird-ed", name: "community") {
-#     discussions(first: 100, after: $cursor) {
-#       pageInfo {
-#         endCursor
-#         hasNextPage
-#       }
-#       nodes {
-#         id
-#         category {
-#           slug
-#         }
-#       }
-#     }
-#   }
-# }
-# """
-#
-# url = 'https://api.github.com/graphql'
-# headers = {"Authorization": "bearer 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"}
-#
-# # Get user input for start and end date
-# start_date_input = input("Enter start date in YYYY-MM-DD format: ")
-# end_date_input = input("Enter end date in YYYY-MM-DD format: ")
-#
-# # Convert input dates to datetime objects
-# start_date = datetime.strptime(start_date_input, "%Y-%m-%d")
-# end_date = datetime.strptime(end_date_input, "%Y-%m-%d") + timedelta(days=1)  # Add one day to include discussions on end date
-#
-# has_next_page = True
-# end_cursor = None
-# category_counts = {}
-# discussions_seen = set()
-#
-# while has_next_page:
-#     variables = {"cursor": end_cursor, "startDate": start_date.isoformat(), "endDate": end_date.isoformat()}
-#     response = requests.post(url, headers=headers, json={'query': query, 'variables': variables})
-#
-#     if response.status_code == 200:
-#         json_data = json.loads(response.text)
-#         discussions = json_data["data"]["repository"]["discussions"]
-#         end_cursor = discussions["pageInfo"]["endCursor"]
-#         has_next_page = discussions["pageInfo"]["hasNextPage"]
-#         for discussion in discussions["nodes"]:
-#             category_slug = discussion["category"]["slug"]
-#             if category_slug == "announcements":
-#                 continue  # Skip this discussion if it's in the "announcements" category
-#             if category_slug not in category_counts:
-#                 category_counts[category_slug] = 0
-#             if discussion["id"] not in discussions_seen:
-#                 category_counts[category_slug] += 1
-#                 discussions_seen.add(discussion["id"])
-#     else:
-#         print("Request failed with status code:", response.status_code)
-#         break
-#
-# total_count = sum(category_counts.values())
-# print(f"Total discussion count for {start_date_input} to {end_date_input}: {total_count}")
-#
-# print("Discussion counts by category:")
-# for category_slug, count in category_counts.items():
-#     print(f"{category_slug}: {count}")
