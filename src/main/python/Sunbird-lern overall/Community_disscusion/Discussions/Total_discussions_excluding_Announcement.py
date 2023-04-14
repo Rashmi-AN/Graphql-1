@@ -3,7 +3,7 @@ import requests
 import configparser
 
 config = configparser.ConfigParser(interpolation=None)
-config.read("config.ini")
+config.read("Please add the config file path")
 
 name_of_community = config.get("COMMUNITY_NAME", "name")
 
