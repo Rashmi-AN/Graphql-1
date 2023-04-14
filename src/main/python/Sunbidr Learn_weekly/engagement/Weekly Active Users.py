@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 import configparser
 
 config = configparser.ConfigParser(interpolation=None)
-config.read("config.ini")
+config.read("Please provide your token")
 
 name_of_community = config.get("COMMUNITY_NAME", "name")
 
